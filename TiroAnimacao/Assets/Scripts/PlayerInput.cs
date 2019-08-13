@@ -15,5 +15,10 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         playerControler.Move(Input.GetAxisRaw("Horizontal"));
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            playerControler.Jump();
+        }
     }
 }
