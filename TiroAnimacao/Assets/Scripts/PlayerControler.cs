@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerControler : MonoBehaviour
 {
-    public float jumpForce = 550;
+    public float jumpForce = 800;
     public Transform groundCheck;
     public float groundRadius = 0.1f;
     public LayerMask groundLayer;
@@ -24,7 +24,7 @@ public class PlayerControler : MonoBehaviour
     private bool grounded;
 
     private PlayerAnimation playerAnimation;
-
+   
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -40,9 +40,12 @@ public class PlayerControler : MonoBehaviour
     void Update()
     {
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
+        playerAnimation.SetOnGround(grounded);
     }
     private void FixedUpdate()
     {
+        
+
         rb.velocity = newMovement;
 
         if (jump)
@@ -51,6 +54,8 @@ public class PlayerControler : MonoBehaviour
             rb.velocity = Vector2.zero;
             rb.AddForce(Vector2.up * jumpForce);
         }
+
+        playerAnimation.setVSpeed(rb.velocity.y);
     }
 
     public void Jump()
@@ -79,5 +84,5 @@ public class PlayerControler : MonoBehaviour
         transform.Rotate(0, 180, 0);
     }
 
-
+    
 }
